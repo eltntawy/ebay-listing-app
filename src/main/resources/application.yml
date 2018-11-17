@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+
+logging:
+  level:
+    com.app.listing.ebay: DEBUG
+
+app:
+  clientId: MohamedH-listinga-SBX-eccf1173b-6aa623cf
+  secret: SBX-ccf1173baade-bfbf-460d-a7c6-e009
+  redirectUri: Mohamed_Hassan-MohamedH-listin-mprlppm
+
+
+ebay:
+  config:
+    scope:
+      sell.inventory: https://api.ebay.com/oauth/api_scope/sell.inventory
+    grantType:
+      authorizationCode: authorization_code
+      clientCredentials: client_credentials
+
+  auth:
+    url:
+      authorize: https://auth.sandbox.ebay.com/oauth2/authorize
+      generateToken: https://api.sandbox.ebay.com/identity/v1/oauth2/token
+
