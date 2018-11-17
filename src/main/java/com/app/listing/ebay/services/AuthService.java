@@ -30,9 +30,6 @@ public class AuthService {
     String clientId;
     @Value("${app.redirectUri}")
     String redirectUrl;
-    @Value("${ebay.config.scope.sell.inventory}")
-    String scope;
-
     @Value("${ebay.config.grantType.authorizationCode}")
     String authorizationGrantType;
 
@@ -94,8 +91,9 @@ public class AuthService {
      *
      * @return the correct url to login to ebay and gain access
      */
-    public String buildAuthrizeUrlForSellInventoryUrl() {
+    public String buildAuthorizeUrlForSellInventoryUrl() {
 
+        String scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.order.readonly https://api.ebay.com/oauth/api_scope/buy.guest.order https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/sell.marketplace.insights.readonly https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly https://api.ebay.com/oauth/api_scope/buy.shopping.cart https://api.ebay.com/oauth/api_scope/buy.offer.auction";
         String url = authorizeUrl +
                 "?client_id=" + clientId +
                 "&redirect_uri=" + redirectUrl +

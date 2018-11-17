@@ -15,7 +15,7 @@ public class IndexController {
     @GetMapping("/")
     public ModelAndView index(ModelAndView modelAndView) {
         modelAndView.setViewName("index");
-        modelAndView.addObject("obtainAccessUrl",authService.buildAuthrizeUrlForSellInventoryUrl());
+        modelAndView.addObject("obtainAccessUrl",authService.buildAuthorizeUrlForSellInventoryUrl());
         return modelAndView;
     }
 }
