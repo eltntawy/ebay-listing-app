@@ -32,4 +32,4 @@ ebay:
   auth:
     url:
       authorize: https://auth.sandbox.ebay.com/oauth2/authorize
-      generateToken: https://rest.sandbox.ebay.com/identity/v1/oauth2/token
+      generateToken: https://auth.sandbox.ebay.com/identity/v1/oauth2/token
