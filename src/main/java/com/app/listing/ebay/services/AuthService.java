@@ -22,22 +22,25 @@ public class AuthService {
 
     Logger logger = Logger.getLogger(AuthService.class.getName());
 
+    @Value("${app.clientId}")
+    String clientId;
+    @Value("${app.secret}")
+    String secret;
+
     @Value("${ebay.auth.url.authorize}")
     String authorizeUrl;
     @Value("${ebay.auth.url.generateToken}")
     String generateTokenUrl;
-    @Value("${app.clientId}")
-    String clientId;
+
     @Value("${app.redirectUri}")
     String redirectUrl;
     @Value("${ebay.config.grantType.authorizationCode}")
     String authorizationGrantType;
 
-    @Value("${app.secret}")
-    String secret;
 
 
-    private TokenResponseDto tokenResponseDto;
+
+    private TokenResponseDto tokenResponseDto = new TokenResponseDto();
 
     /**
      * generate accessToken base on code returned from obtain user consent service
@@ -93,7 +96,7 @@ public class AuthService {
      */
     public String buildAuthorizeUrlForSellInventoryUrl() {
 
-        String scope = "https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.order.readonly https://api.ebay.com/oauth/api_scope/buy.guest.order https://api.ebay.com/oauth/api_scope/sell.marketing.readonly https://api.ebay.com/oauth/api_scope/sell.marketing https://api.ebay.com/oauth/api_scope/sell.inventory.readonly https://api.ebay.com/oauth/api_scope/sell.inventory https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://api.ebay.com/oauth/api_scope/sell.fulfillment https://api.ebay.com/oauth/api_scope/sell.analytics.readonly https://api.ebay.com/oauth/api_scope/sell.marketplace.insights.readonly https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly https://api.ebay.com/oauth/api_scope/buy.shopping.cart https://api.ebay.com/oauth/api_scope/buy.offer.auction";
+        String scope = "https://rest.ebay.com/oauth/api_scope https://rest.ebay.com/oauth/api_scope/buy.order.readonly https://rest.ebay.com/oauth/api_scope/buy.guest.order https://rest.ebay.com/oauth/api_scope/sell.marketing.readonly https://rest.ebay.com/oauth/api_scope/sell.marketing https://rest.ebay.com/oauth/api_scope/sell.inventory.readonly https://rest.ebay.com/oauth/api_scope/sell.inventory https://rest.ebay.com/oauth/api_scope/sell.account.readonly https://rest.ebay.com/oauth/api_scope/sell.account https://rest.ebay.com/oauth/api_scope/sell.fulfillment.readonly https://rest.ebay.com/oauth/api_scope/sell.fulfillment https://rest.ebay.com/oauth/api_scope/sell.analytics.readonly https://rest.ebay.com/oauth/api_scope/sell.marketplace.insights.readonly https://rest.ebay.com/oauth/api_scope/commerce.catalog.readonly https://rest.ebay.com/oauth/api_scope/buy.shopping.cart https://rest.ebay.com/oauth/api_scope/buy.offer.auction";
         String url = authorizeUrl +
                 "?client_id=" + clientId +
                 "&redirect_uri=" + redirectUrl +

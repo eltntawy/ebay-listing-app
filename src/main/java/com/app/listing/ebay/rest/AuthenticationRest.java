@@ -1,25 +1,27 @@
-package com.app.listing.ebay.api.auth;
+package com.app.listing.ebay.rest;
 
 import com.app.listing.ebay.model.dto.TokenResponseDto;
 import com.app.listing.ebay.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Logger;
 
-@RestController("/auth/obtain_access_token")
-public class ObtainAccessTokenRest {
+@RestController
+@RequestMapping("/auth")
+public class AuthenticationRest {
 
-    Logger logger = Logger.getLogger(ObtainAccessTokenRest.class.getName());
+    Logger logger = Logger.getLogger(AuthenticationRest.class.getName());
 
     @Autowired
     AuthService authService;
 
 
-    @GetMapping
+    @GetMapping("/obtain_access_token")
     public TokenResponseDto getAccessToken(@RequestParam("state") String state, @RequestParam("code") String code) throws UnsupportedEncodingException {
 
         authService.generateToken(code);

@@ -20,6 +20,14 @@ public class TokenResponseDto {
     @JsonProperty("token_type")
     String tokenType;
 
+    public TokenResponseDto() {
+        this.accessToken = "";
+        this.expiresIn = 0;
+        this.refreshToken = "";
+        this.refreshTokenExpiresIn = 0;
+        this.tokenType = "";
+    }
+
     public String getAccessToken() {
         return accessToken;
     }

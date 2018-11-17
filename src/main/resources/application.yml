@@ -4,7 +4,8 @@ spring:
 
 logging:
   level:
-    com.app.listing.ebay: DEBUG
+    root: info
+    com.app.listing.ebay: trace
 
 app:
   clientId: MohamedH-listinga-SBX-eccf1173b-6aa623cf
@@ -14,8 +15,16 @@ app:
 
 ebay:
   config:
+    base.url:
+      inventory: https://api.sandbox.ebay.com/sell/inventory/v1/
+      account: https://api.sandbox.ebay.com/sell/account/v1/
+      fulfillment: https://api.sandbox.ebay.com/sell/fulfillment/v1/
+      compliance: https://api.sandbox.ebay.com/sell/compliance/v1/
+      analytics: https://api.sandbox.ebay.com/sell/analytics/v1/
+      logistics: https://api.sandbox.ebay.com/sell/logistics/v1/
+
     scope:
-      sell.inventory: https://api.ebay.com/oauth/api_scope/sell.inventory
+      sell.inventory: https://rest.ebay.com/oauth/api_scope/sell.inventory
     grantType:
       authorizationCode: authorization_code
       clientCredentials: client_credentials
@@ -23,5 +32,4 @@ ebay:
   auth:
     url:
       authorize: https://auth.sandbox.ebay.com/oauth2/authorize
-      generateToken: https://api.sandbox.ebay.com/identity/v1/oauth2/token
-
+      generateToken: https://rest.sandbox.ebay.com/identity/v1/oauth2/token

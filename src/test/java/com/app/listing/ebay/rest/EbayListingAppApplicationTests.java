@@ -1,4 +1,4 @@
-package com.app.listing.ebay.api;
+package com.app.listing.ebay.rest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
