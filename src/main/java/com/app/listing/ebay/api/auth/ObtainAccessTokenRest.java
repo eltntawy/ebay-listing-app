@@ -2,13 +2,11 @@ package com.app.listing.ebay.api.auth;
 
 import com.app.listing.ebay.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @RestController("/auth/obtain_access_token")
@@ -23,15 +21,19 @@ public class ObtainAccessTokenRest {
     @GetMapping
     public String getAccessToken(@RequestParam("state") String state, @RequestParam("code") String code) throws UnsupportedEncodingException {
 
-        String accessToken = authService.generateToken(code);
+        authService.generateToken(code);
 
-        logRequest(state,code,accessToken);
-        return "Good work";
+        logRequest(state, code, authService.getTokenResponseDto().toString());
+        String result = "You are now connected to Ebay\n"
+                + " your access token: \n"
+                + authService.getTokenResponseDto();
+
+        return result;
 
     }
 
 
-    private void logRequest( String state, String code,String accessToken) {
+    private void logRequest(String state, String code, String accessToken) {
         logger.info("************************* Request *************************");
         logger.info("-------------------- state --------------------");
         logger.info(state);

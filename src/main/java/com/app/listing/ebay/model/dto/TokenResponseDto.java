@@ -63,4 +63,16 @@ public class TokenResponseDto {
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
     }
+
+
+    @Override
+    public String toString() {
+        return "TokenResponseDto{" +
+                "accessToken='" + accessToken + '\'' +
+                ", expiresIn=" + expiresIn +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", refreshTokenExpiresIn=" + refreshTokenExpiresIn +
+                ", tokenType='" + tokenType + '\'' +
+                '}';
+    }
 }

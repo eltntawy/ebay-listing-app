@@ -36,16 +36,11 @@ public class AuthService {
     @Value("${ebay.config.grantType.authorizationCode}")
     String authorizationGrantType;
 
-    private String accessToken;
-    private int tokenExpireIn;
-    private String refreshToken;
-    private int refreshTokenExpireIn;
-    private String tokenType;
-
-
     @Value("${app.secret}")
     String secret;
 
+
+    private TokenResponseDto tokenResponseDto;
 
     /**
      * generate accessToken base on code returned from obtain user consent service
@@ -53,7 +48,7 @@ public class AuthService {
      * @param code as it's return from the ebay service
      * @return
      */
-    public String generateToken(String code) throws UnsupportedEncodingException {
+    public void generateToken(String code) throws UnsupportedEncodingException {
 
         String decodedCode = URLDecoder.decode(code, "UTF8");
 
@@ -74,22 +69,16 @@ public class AuthService {
             if (response != null && response.getStatusCode() == HttpStatus.OK) {
                 TokenResponseDto tokenDto = response.getBody();
                 if (tokenDto != null) {
-                    accessToken = tokenDto.getAccessToken();
-                    refreshToken = tokenDto.getRefreshToken();
-                    tokenExpireIn = tokenDto.getExpiresIn();
-                    refreshTokenExpireIn = tokenDto.getRefreshTokenExpiresIn();
-                    tokenType = tokenDto.getTokenType();
+                    logger.fine("log token getting successfully");
+                    this.tokenResponseDto = tokenDto;
                 } else {
                     throw new RuntimeException("Token is null");
                 }
             }
 
-
         } catch (HttpClientErrorException ex) {
             logger.log(Level.SEVERE, ex.getResponseBodyAsString(), ex);
         }
-
-        return accessToken;
     }
 
     /**
@@ -133,24 +122,8 @@ public class AuthService {
         return generateTokenUrl;
     }
 
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public int getTokenExpireIn() {
-        return tokenExpireIn;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public int getRefreshTokenExpireIn() {
-        return refreshTokenExpireIn;
-    }
-
-    public String getTokenType() {
-        return tokenType;
+    public TokenResponseDto getTokenResponseDto() {
+        return tokenResponseDto;
     }
 
     private HttpHeaders createHeaders(String username, String password) {
