@@ -20,7 +20,7 @@ public class ObtainAccessTokenRest {
 
 
     @GetMapping
-    public String getAccessToken(@RequestParam("state") String state, @RequestParam("code") String code) throws UnsupportedEncodingException {
+    public TokenResponseDto getAccessToken(@RequestParam("state") String state, @RequestParam("code") String code) throws UnsupportedEncodingException {
 
         authService.generateToken(code);
 
@@ -35,7 +35,9 @@ public class ObtainAccessTokenRest {
                 + "refresh token expire in: " + token.getRefreshTokenExpiresIn()+ "\n"
                 + "type: " + token.getTokenType();
 
-        return result;
+        logger.fine(result);
+
+        return token;
 
     }
 
