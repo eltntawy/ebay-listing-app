@@ -3,6 +3,7 @@ package com.app.listing.ebay.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.util.StreamUtils;
 
 public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
 
@@ -27,18 +29,17 @@ public class LoggingRequestInterceptor implements ClientHttpRequestInterceptor {
         log.info("===========================request begin================================================");
         log.debug("URI         : {}", request.getURI());
         log.debug("Method      : {}", request.getMethod());
-        log.debug("Headers     : {}", request.getHeaders() );
+        log.debug("Headers     : {}", request.getHeaders());
         log.debug("Request body: {}", new String(body, "UTF-8"));
         log.info("==========================request end================================================");
     }
 
     private void traceResponse(ClientHttpResponse response) throws IOException {
-        StringBuilder inputStringBuilder = new StringBuilder();
-
         log.info("============================response begin==========================================");
         log.debug("Status code  : {}", response.getStatusCode());
         log.debug("Status text  : {}", response.getStatusText());
         log.debug("Headers      : {}", response.getHeaders());
+        log.debug("Response body: {}", StreamUtils.copyToString(response.getBody(), Charset.defaultCharset()));
         log.info("=======================response end=================================================");
     }
 
