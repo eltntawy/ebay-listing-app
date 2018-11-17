@@ -1,5 +1,6 @@
 package com.app.listing.ebay.api.auth;
 
+import com.app.listing.ebay.model.dto.TokenResponseDto;
 import com.app.listing.ebay.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,10 +24,16 @@ public class ObtainAccessTokenRest {
 
         authService.generateToken(code);
 
+        TokenResponseDto token = authService.getTokenResponseDto();
+
         logRequest(state, code, authService.getTokenResponseDto().toString());
         String result = "You are now connected to Ebay\n"
-                + " your access token: \n"
-                + authService.getTokenResponseDto();
+                + "your data is\n"
+                + "access token: \n" + token.getAccessToken()
+                + "token token: \n" + token.getExpiresIn()
+                + "access token: \n" + token.getRefreshToken()
+                + "refresh token expire in: \n" + token.getRefreshTokenExpiresIn()
+                + "type: \n" + token.getTokenType();
 
         return result;
 
