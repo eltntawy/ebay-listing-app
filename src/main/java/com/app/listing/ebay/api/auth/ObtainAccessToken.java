@@ -15,24 +15,27 @@ public class ObtainAccessToken {
     Logger logger = Logger.getLogger(ObtainAccessToken.class.getName());
 
     @GetMapping
-    public String getAccessToken(@RequestHeader HttpHeaders headers, @RequestBody(required = false) String body) {
-        return logRequest(headers, body);
-    }
+    public String getAccessToken(@RequestHeader HttpHeaders headers,
+                                 @RequestBody(required = false) String body,
+                                 @RequestParam("state") String status,
+                                 @RequestParam("code") String code) {
 
-    @PostMapping
-    public String postAccessToken(@RequestHeader HttpHeaders headers, @RequestBody(required = false) String body) {
-        return logRequest(headers, body);
-    }
-
-    private String logRequest(HttpHeaders headers, String body) {
-
+        logger.info("************************* Request *************************");
         logger.info("-------------------- Headers --------------------");
         logger.info(headers.toString());
         logger.info("-------------------- Headers --------------------");
         logger.info("-------------------- Body --------------------");
         logger.info(body);
         logger.info("-------------------- Body --------------------");
+        logger.info("-------------------- status --------------------");
+        logger.info(status);
+        logger.info("-------------------- status --------------------");
+        logger.info("-------------------- code --------------------");
+        logger.info(code);
+        logger.info("-------------------- code --------------------");
+        logger.info("************************* Request *************************");
 
         return "You are in the Obtain Access Token API";
+
     }
 }
