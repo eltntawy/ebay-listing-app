@@ -1,8 +1,12 @@
 package com.app.listing.ebay.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class GenerateTokenResponseDto {
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+public class TokenResponseDto {
 
     @JsonProperty("access_token")
     String accessToken;

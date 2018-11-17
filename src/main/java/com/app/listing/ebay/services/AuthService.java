@@ -1,19 +1,14 @@
 package com.app.listing.ebay.services;
 
-import com.app.listing.ebay.model.dto.GenerateTokenResponseDto;
+import com.app.listing.ebay.model.dto.TokenResponseDto;
 import com.app.listing.ebay.utils.RestTemplateUtil;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
@@ -74,15 +69,24 @@ public class AuthService {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
 
         try {
-            ResponseEntity<GenerateTokenResponseDto> response = restTemplate.postForEntity(generateTokenUrl, request, GenerateTokenResponseDto.class);
-            accessToken = response.getBody().getAccessToken();
-            refreshToken = response.getBody().getRefreshToken();
-            tokenExpireIn = response.getBody().getExpiresIn();
-            refreshTokenExpireIn = response.getBody().getRefreshTokenExpiresIn();
-            tokenType = response.getBody().getTokenType();
+            ResponseEntity<TokenResponseDto> response = restTemplate.postForEntity(generateTokenUrl, request, TokenResponseDto.class);
+
+            if (response != null && response.getStatusCode() == HttpStatus.OK) {
+                TokenResponseDto tokenDto = response.getBody();
+                if (tokenDto != null) {
+                    accessToken = tokenDto.getAccessToken();
+                    refreshToken = tokenDto.getRefreshToken();
+                    tokenExpireIn = tokenDto.getExpiresIn();
+                    refreshTokenExpireIn = tokenDto.getRefreshTokenExpiresIn();
+                    tokenType = tokenDto.getTokenType();
+                } else {
+                    throw new RuntimeException("Token is null");
+                }
+            }
+
 
         } catch (HttpClientErrorException ex) {
-            logger.log(Level.SEVERE, ex.getResponseBodyAsString() , ex);
+            logger.log(Level.SEVERE, ex.getResponseBodyAsString(), ex);
         }
 
         return accessToken;
