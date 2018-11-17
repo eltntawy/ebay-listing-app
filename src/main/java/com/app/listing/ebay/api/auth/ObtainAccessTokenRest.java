@@ -29,11 +29,11 @@ public class ObtainAccessTokenRest {
         logRequest(state, code, authService.getTokenResponseDto().toString());
         String result = "You are now connected to Ebay\n"
                 + "your data is\n"
-                + "access token: \n" + token.getAccessToken()
-                + "token token: \n" + token.getExpiresIn()
-                + "access token: \n" + token.getRefreshToken()
-                + "refresh token expire in: \n" + token.getRefreshTokenExpiresIn()
-                + "type: \n" + token.getTokenType();
+                + "access token: " + token.getAccessToken() + "\n"
+                + "token token: " + token.getExpiresIn()+ "\n"
+                + "access token: " + token.getRefreshToken()+ "\n"
+                + "refresh token expire in: " + token.getRefreshTokenExpiresIn()+ "\n"
+                + "type: " + token.getTokenType();
 
         return result;
 
