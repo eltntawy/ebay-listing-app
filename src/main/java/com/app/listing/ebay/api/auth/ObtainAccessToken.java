@@ -6,6 +6,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 @RestController("/auth/obtain_access_token")
@@ -33,6 +34,12 @@ public class ObtainAccessToken {
         logger.info("-------------------- code --------------------");
         logger.info(code);
         logger.info("-------------------- code --------------------");
+
+        logger.info("-------------------- Access Token (Authorization token) --------------------");
+        String token = Base64.getDecoder().decode(code.getBytes()).toString();
+        logger.info(token);
+        logger.info("-------------------- Access Token (Authorization token) --------------------");
+
         logger.info("************************* Request *************************");
 
         return "You are in the Obtain Access Token API";
